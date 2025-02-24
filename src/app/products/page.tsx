@@ -1,17 +1,28 @@
 "use client";
 
 import { useProducts } from "@/apis";
-import Layout from "../components/Layout";
 import { Product } from "@/apis/types";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-
+import Layout from "../components/Layout";
+import { useState } from "react";
 export default function Products() {
-  const { data, isLoading, error } = useProducts();
+  const [fetchProducts, setFetchProducts] = useState<boolean>(false);
+  const { data, isLoading, error } = useProducts(fetchProducts);
+  const queryClient = useQueryClient();
+
+  const handleCancel = () => {
+    queryClient.cancelQueries({ queryKey: ["products"] });
+    setFetchProducts(false);
+  };
 
   if (isLoading) {
     return (
       <Layout>
         <div>Loading products...</div>
+        <a href="#" className="text-red-600" onClick={handleCancel}>
+          Cancel
+        </a>
       </Layout>
     );
   }
@@ -26,6 +37,9 @@ export default function Products() {
 
   return (
     <Layout>
+      <a href="#" onClick={() => setFetchProducts(true)}>
+        Fetch Products
+      </a>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.map((product: Product) => (
           <Link key={product.id} href={`/products/${product.id}`}>

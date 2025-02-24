@@ -47,10 +47,11 @@ const productApi = {
 };
 
 // React Query hooks
-export const useProducts = () => {
+export const useProducts = (isFetched: boolean) => {
   return useQuery({
     queryKey: ["products"],
     queryFn: ({ signal }) => productApi.getProducts(signal),
+    enabled: isFetched,
   });
 };
 
