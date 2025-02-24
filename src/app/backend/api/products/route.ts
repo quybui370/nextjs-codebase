@@ -768,6 +768,6 @@ export async function GET() {
           },
         ])
       );
-    }, 5000);
+    }, 1000);
   });
 }

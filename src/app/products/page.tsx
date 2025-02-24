@@ -37,9 +37,11 @@ export default function Products() {
 
   return (
     <Layout>
-      <a href="#" onClick={() => setFetchProducts(true)}>
-        Fetch Products
-      </a>
+      {!data && (
+        <a href="#" onClick={() => setFetchProducts(true)}>
+          Fetch Products
+        </a>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.map((product: Product) => (
           <Link key={product.id} href={`/products/${product.id}`}>

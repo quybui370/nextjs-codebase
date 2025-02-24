@@ -85,6 +85,7 @@ export const useUpdateProduct = () => {
     onError: (error) => {
       console.error("Error updating product:", error);
     },
+    throwOnError: true,
   });
 };
 
@@ -104,5 +105,6 @@ export const useDeleteProduct = () => {
     onError: (error) => {
       console.error("Error deleting product:", error);
     },
+    throwOnError: false, // Don't throw an error on delete failure
   });
 };

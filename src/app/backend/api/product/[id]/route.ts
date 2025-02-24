@@ -20,17 +20,18 @@ export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
 ) {
+  const id = params.id;
   const body = await req.json();
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(
         NextResponse.json({
           status: 200,
           data: body,
-          message: "Product updated successfully",
+          message: `Product with id ${id} updated successfully`,
         })
       );
-    }, 5000);
+    }, 1000);
   });
 }
 
@@ -40,6 +41,6 @@ export async function DELETE(
 ) {
   return NextResponse.json({
     status: 200,
-    message: "Product deleted successfully",
+    message: `Product with id ${params.id} deleted successfully`,
   });
 }
